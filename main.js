@@ -3,25 +3,34 @@
 const deposit = document.getElementById('deposit-button');
 
 deposit.addEventListener('click', function () {
+
     const depositInput = document.getElementById('deposit-input');
     const newDepositAmount = depositInput.value;
     // console.log(newDepositAmount);
+    if (newDepositAmount < 0) {
+        alert('Please enter positive value only..')
+    } else if (isNaN(newDepositAmount)) {
+        alert('Please enter only integer value...')
+    } else {
+        // Update deposit total
+        const depositTotal = document.getElementById('deposit-total');
+        const prevDepositAmount = depositTotal.innerText;
+        const newTotalDeposit = parseFloat(prevDepositAmount) + parseFloat(newDepositAmount);
+        depositTotal.innerText = newTotalDeposit;
 
-    // Update deposit total
-    const depositTotal = document.getElementById('deposit-total');
-    const prevDepositAmount = depositTotal.innerText;
-    const newTotalDeposit = parseFloat(prevDepositAmount) + parseFloat(newDepositAmount);
-    depositTotal.innerText = newTotalDeposit;
+        // update balance
+        const balanceTotal = document.getElementById('balance-total');
+        const prevBalanaceAmount = balanceTotal.innerText;
+        const newTotalBalance = parseFloat(prevBalanaceAmount) + parseFloat(newDepositAmount);
 
-    // update balance
-    const balanceTotal = document.getElementById('balance-total');
-    const prevBalanaceAmount = balanceTotal.innerText;
-    const newTotalBalance = parseFloat(prevBalanaceAmount) + parseFloat(newDepositAmount);
-
-    balanceTotal.innerText = newTotalBalance;
+        balanceTotal.innerText = newTotalBalance;
+    }
 
     // clear input field
     depositInput.value = '';
+
+
+
 });
 
 // handle withdraw 
@@ -31,20 +40,27 @@ const withdraw = document.getElementById('withdraw-button');
 withdraw.addEventListener('click', function () {
     const withdrawInput = document.getElementById('withdraw-input');
     const withdrawAmount = withdrawInput.value;
-    console.log(withdrawAmount);
+    // console.log(withdrawAmount);
+    if (withdrawAmount < 0) {
+        alert('Please enter positive value only...')
+    } else if (isNaN(withdrawAmount)) {
+        alert('Please enter integer value only..')
+    } else {
+        // Update withdraw amount
+        const withdrawTotal = document.getElementById('withdraw-total');
+        const prevWithdrawAmount = withdrawTotal.innerText;
+        const newTotalWithdraw = parseFloat(prevWithdrawAmount) + parseFloat(withdrawAmount)
+        withdrawTotal.innerText = newTotalWithdraw;
 
-    // Update withdraw amount
-    const withdrawTotal = document.getElementById('withdraw-total');
-    const prevWithdrawAmount = withdrawTotal.innerText;
-    const newTotalWithdraw = parseFloat(prevWithdrawAmount) + parseFloat(withdrawAmount)
-    withdrawTotal.innerText = newTotalWithdraw;
+        // update balace after withdraw
+        const balanceTotal = document.getElementById('balance-total');
+        const prevBalanceAmount = balanceTotal.innerText;
+        const newBalanceAmount = parseFloat(prevBalanceAmount) - parseFloat(withdrawAmount);
 
-    // update balace after withdraw
-    const balanceTotal = document.getElementById('balance-total');
-    const prevBalanceAmount = balanceTotal.innerText;
-    const newBalanceAmount = parseFloat(prevBalanceAmount) - parseFloat(withdrawAmount);
+        balanceTotal.innerText = newBalanceAmount;
+    }
 
-    balanceTotal.innerText = newBalanceAmount;
+
 
 
     // clear input field
